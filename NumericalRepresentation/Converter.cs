@@ -6,94 +6,100 @@ using System.Threading.Tasks;
 
 namespace NumericalRepresentation
 {
-    internal class Converter
+    internal static class Converter
     {
-        public static string ConvertBinToDec(BinaryRepresentation num)
+        public static long ConvertBinToDec(BinaryRepresentation binNumber)
         {
-            int result = 0;
-            for (int i = num.GetLength() - 1; i >= 0; i--)
-                result += num.GetBit(num.GetLength() - 1 - i) * (int)Math.Pow(2, i);
-            return result.ToString();
+            int decNumber = 0;
+
+            for (int i = binNumber.Length - 1; i >= 0; i--)
+                decNumber += binNumber.GetBit(binNumber.Length - 1 -i) << i;
+
+            return decNumber;
         }
 
-        public static string ConvertDecToBin(int num)
+        public static BinaryRepresentation ConvertDecToBin(int decNumber)
         {
-            if (num != 0)
+            BinaryRepresentation binNumber = new BinaryRepresentation(decNumber);
+            int i = 0;
+
+            while(decNumber > 0)
             {
-                string str = "";
-                while (num != 0)
-                {
-                    str += num % 2;
-                    num /= 2;
-                }
-                char[] c = str.ToCharArray();
-                Array.Reverse(c);
-                string result = new string(c);
-                return result;
+                if((decNumber & 1) == 1)
+                    binNumber.EnableBit(i);
+                else binNumber.DisableBit(i);
+                decNumber >>= 1;
+                i++;
             }
-            return "0";
+
+            binNumber.CutBits(i);
+            binNumber.ReverseBits();
+
+            return binNumber;
         }
 
-        public static string ConvertBinToOct(BinaryRepresentation num)
+        public static string ConvertBinToOct(BinaryRepresentation binNumber)
         {
-            int dec = Int32.Parse(ConvertBinToDec(num));
-            if (dec != 0)
-            {
-                string str = "";
+            string octNumber = "";
+            int currentDigit = 0;
 
-                while (dec != 0)
+            for (int i = binNumber.Length - 1; i >= 0; i--)
+            {
+                int bitIndex = binNumber.Length - i - 1;
+
+                currentDigit += binNumber.GetBit(i) == 1 
+                    ? 1 << (bitIndex % 3) 
+                    : 0;
+
+                if(bitIndex % 3 == 2)
                 {
-                    str += dec % 8;
-                    dec /= 8;
+                    octNumber += currentDigit.ToString();
+                    currentDigit = 0;
                 }
-                char[] c = str.ToCharArray();
-                Array.Reverse(c);
-                string result = new string(c);
-                return result;
             }
-            return "0";
+
+            if(binNumber.Length % 3 != 0)
+                octNumber += currentDigit.ToString();
+
+            return ReverseString(octNumber);
         }
 
-        public static string ConvertBinToHex(BinaryRepresentation num)
+        public static string ConvertBinToHex(BinaryRepresentation binaryNumber)
         {
-            int dec = Int32.Parse(ConvertBinToDec(num));
-            if (dec != 0)
+            string hexNumber = "";
+            int currentDigit = 0;
+
+            for (int i = binaryNumber.Length - 1; i >= 0; i--)
             {
-                string str = "";
-                while (dec != 0)
+                int bitIndex = binaryNumber.Length - i - 1;
+
+                currentDigit += binaryNumber.GetBit(i) == 1
+                   ? 1 << (bitIndex % 4)
+                   : 0;
+
+                if (bitIndex % 4 == 3)
                 {
-                    switch (dec % 16)
+                    if (currentDigit >= 10)
                     {
-                        case 10:
-                            str += "A";
-                            break;
-                        case 11:
-                            str += "B";
-                            break;
-                        case 12:
-                            str += "C";
-                            break;
-                        case 13:
-                            str += "D";
-                            break;
-                        case 14:
-                            str += "E";
-                            break;
-                        case 15:
-                            str += "F";
-                            break;
-                        default:
-                            str += dec % 16;
-                            break;
+                        hexNumber += (char)(currentDigit - 10 + 'A');
                     }
-                    dec /= 16;
+                    else hexNumber += currentDigit.ToString();
+                    currentDigit = 0;
                 }
-                char[] c = str.ToCharArray();
-                Array.Reverse(c);
-                string result = new string(c);
-                return result;
             }
-            return "0";
+
+            if (binaryNumber.Length % 4 != 0)
+                hexNumber += currentDigit.ToString();
+
+            return ReverseString(hexNumber);
+        }
+
+        public static string ReverseString(string str)
+        {
+            char[] c = str.ToCharArray();
+            Array.Reverse(c);
+            string reversedString = new string(c);
+            return reversedString;
         }
     }
 }

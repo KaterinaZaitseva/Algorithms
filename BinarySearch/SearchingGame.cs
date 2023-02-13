@@ -35,7 +35,7 @@ namespace BinarySearch{
                     high = mid - 1;
 
                 else if (input == 2)
-                    low = mid;
+                    low = mid + 1;
             }
             Console.WriteLine("The hidden number " + _range[mid]);
         }

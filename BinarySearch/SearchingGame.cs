@@ -20,9 +20,9 @@ namespace BinarySearch{
             int input;
             int high = _range.Length - 1;
             int low = 0;
-            int guess;
+            int guess = 0;
             int mid = 0;
-            do {
+            while(low < high) {
                 mid = (low + high) / 2;
                 guess = _range[mid];
                 do {
@@ -36,8 +36,8 @@ namespace BinarySearch{
 
                 else if (input == 2)
                     low = mid + 1;
-            } while (low != high);
-            Console.WriteLine("The hidden number " + _range[mid]);
+            }
+            Console.WriteLine("The hidden number " + _range[high]);
         }
     }
 }

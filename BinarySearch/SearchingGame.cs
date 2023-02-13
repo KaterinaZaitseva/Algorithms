@@ -22,12 +22,10 @@ namespace BinarySearch{
             int low = 0;
             int guess;
             int mid = 0;
-            do
-            {
+            do {
                 mid = (low + high) / 2;
                 guess = _range[mid];
-                do
-                {
+                do {
                     Console.WriteLine("The supposed number is " + guess);
                     Console.WriteLine("1. This number is less then the hidden number");
                     Console.WriteLine("2. This number is bigger or equal to then the hidden number");

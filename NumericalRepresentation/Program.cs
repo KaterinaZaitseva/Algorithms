@@ -11,6 +11,8 @@
             Console.WriteLine(Converter.ConvertBinToOct(num));
             Console.WriteLine(Converter.ConvertBinToHex(num));
             Console.WriteLine(Converter.ConvertDecToBin(335));
+            Console.WriteLine(Converter.ConvertDecToBin(289));
+            Console.WriteLine(Converter.ConvertDecToBin(11009));
         }
     }
 }

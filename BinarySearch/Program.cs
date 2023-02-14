@@ -3,8 +3,7 @@
         public static void Main(string[] args) {
             Console.Write("Enter the range: ");
             int input = Convert.ToInt32(Console.ReadLine());
-            SearchingGame game = new SearchingGame(input);
-            game.GetStart();
+            SearchingGame.GetStart(input);
         }
     }
 }

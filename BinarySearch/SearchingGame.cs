@@ -5,26 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BinarySearch{
-    internal class SearchingGame {
-        private int[] _range;
+    internal static class SearchingGame {
 
-        public SearchingGame(int highBound) {
-            _range = new int[highBound + 1];
-
-            for (int i = 1; i <= highBound; i++)
-                _range[i] = i;
-        }
-
-        public void GetStart()
+        public static void GetStart(int highBound)
         {
             int input;
-            int high = _range.Length - 1;
+            int high = highBound;
             int low = 0;
             int guess = 0;
             int mid = 0;
             while(low < high) {
                 mid = (low + high) / 2;
-                guess = _range[mid];
+                guess = mid;
                 do {
                     Console.WriteLine("The supposed number is " + guess);
                     Console.WriteLine("1. This number is less then the hidden number");
@@ -37,7 +29,7 @@ namespace BinarySearch{
                 else if (input == 2)
                     low = mid + 1;
             }
-            Console.WriteLine("The hidden number " + _range[high]);
+            Console.WriteLine("The hidden number " + high);
         }
     }
 }

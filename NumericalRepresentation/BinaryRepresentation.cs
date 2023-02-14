@@ -1,7 +1,6 @@
-﻿namespace NumericalRepresentation
-{
-    internal class BinaryRepresentation
-    {
+﻿namespace NumericalRepresentation {
+    internal class BinaryRepresentation {
+
         private byte[] _bits;
         private int _length;
         public int Length => _length;
@@ -66,5 +65,6 @@
             }
             return result;
         }
+
     }
 }

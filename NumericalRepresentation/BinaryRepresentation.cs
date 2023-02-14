@@ -4,87 +4,62 @@
     {
         private byte[] _bits;
         private int _length;
-        
-        public int Length { get { return _length; } }
+        public int Length => _length;
 
-        public BinaryRepresentation(int number)
-        {
-            if (number >> 32 != 0)
-            {
-                _bits = new byte[64];
-                _length = 64;
-            }
-            else
-            {
-                _bits = new byte[32];
-                _length = 32;
-            }
+        public BinaryRepresentation(int number) {
+            _bits = number >> 32 != 0 ? AllocateMemory(64) : AllocateMemory(32);
         }
 
-        public BinaryRepresentation(byte[] bits)
-        {
+        private byte[] AllocateMemory(int count) {
+            _length = count;
+            return new byte[count];
+        }
+
+        public BinaryRepresentation(byte[] bits) {
             _bits = bits;
             _length = bits.Length;
         }
 
-        public byte GetBit(int index)
-        {
+        public byte GetBit(int index) {
             return _bits[index];
         }
 
-        public void EnableBit(int index)
-        {
+        public void EnableBit(int index) {
             _bits[index] = 1;
         }
-        public void DisableBit(int index)
-        {
+        public void DisableBit(int index) {
             _bits[index] = 0;
         }
 
-        public void ReverseBits()
-        {
+        public void ReverseBits() {
             Array.Reverse(_bits);
         }
 
-        public void InverseBit(int index)
-        {
+        public void InverseBit(int index) {
             _bits[index] = (byte)~_bits[index];
         }
 
-        public void CutBits(int length)
-        {
+        public void CutBits(int length) {
            byte[] temp = new byte[length];
            Array.Copy(_bits, 0, temp, 0, length);
             _bits = temp;
             _length = temp.Length;
         }
 
-        public override string ToString()
-        {
-            string result = "";
-
-            if (_bits != null)
-                for (int i = 0; i < _length; i++)
-                    result += _bits[i].ToString();
-
-            return result;
+        public override String ToString() { 
+            return ToString(_length); 
         }
 
-        public string ToString(int resultLength)
-        {
-            string result = "";
-            if (_bits != null)
-            {
-                if (resultLength > _length)
-                {
-                    for (int i = 0; i < resultLength - _length; i++)
-                        result += "0";
+        public string ToString(int resultLength) {
+            String result = "";
+            if (_bits != null) {
+                if (resultLength > _length) {
+                    result += new String('0', resultLength - _length);
 
                     for (int i = 0; i < _length; i++)
                         result += _bits[i].ToString();
                 }
-                else
-                {
+                else {
                     for (int i = 0; i < resultLength; i++)
                         result += _bits[i];
                 }

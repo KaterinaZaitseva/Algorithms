@@ -10,8 +10,8 @@ namespace NumericalRepresentation {
         public static long ConvertBinToDec(BinaryRepresentation binNumber) {
             int decNumber = 0;
 
-            for (int i = binNumber.Length - 1; i >= 0; i--)
-                decNumber += binNumber.GetBit(binNumber.Length - 1 -i) << i;
+            for (int i = 0; i < binNumber.Length; i++)
+                decNumber += binNumber.GetBit(i) << i;
 
             return decNumber;
         }
@@ -29,7 +29,6 @@ namespace NumericalRepresentation {
             }
 
             binNumber.CutBits(i);
-            binNumber.ReverseBits();
 
             return binNumber;
         }
@@ -38,14 +37,12 @@ namespace NumericalRepresentation {
             string octNumber = "";
             int currentDigit = 0;
 
-            for (int i = binNumber.Length - 1; i >= 0; i--) {
-                int bitIndex = binNumber.Length - i - 1;
-
+            for (int i = 0; i < binNumber.Length; i++) {
                 currentDigit += binNumber.GetBit(i) == 1 
-                    ? 1 << (bitIndex % 3) 
+                    ? 1 << (i % 3) 
                     : 0;
 
-                if(bitIndex % 3 == 2) {
+                if(i % 3 == 2) {
                     octNumber += currentDigit.ToString();
                     currentDigit = 0;
                 }
@@ -57,18 +54,16 @@ namespace NumericalRepresentation {
             return ReverseString(octNumber);
         }
 
-        public static string ConvertBinToHex(BinaryRepresentation binaryNumber) {
+        public static string ConvertBinToHex(BinaryRepresentation binNumber) {
             string hexNumber = "";
             int currentDigit = 0;
 
-            for (int i = binaryNumber.Length - 1; i >= 0; i--) {
-                int bitIndex = binaryNumber.Length - i - 1;
-
-                currentDigit += binaryNumber.GetBit(i) == 1
-                   ? 1 << (bitIndex % 4)
+            for (int i = 0; i < binNumber.Length; i++) {
+                currentDigit += binNumber.GetBit(i) == 1
+                   ? 1 << (i % 4)
                    : 0;
 
-                if (bitIndex % 4 == 3)  {
+                if (i % 4 == 3)  {
                     if (currentDigit >= 10)
                         hexNumber += (char)(currentDigit - 10 + 'A');
                     else hexNumber += currentDigit.ToString();
@@ -77,7 +72,7 @@ namespace NumericalRepresentation {
                 }
             }
 
-            if (binaryNumber.Length % 4 != 0)
+            if (binNumber.Length % 4 != 0)
                 hexNumber += currentDigit.ToString();
 
             return ReverseString(hexNumber);

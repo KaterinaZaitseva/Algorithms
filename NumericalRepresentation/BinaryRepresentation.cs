@@ -55,11 +55,11 @@
                 if (resultLength > _length) {
                     result += new String('0', resultLength - _length);
 
-                    for (int i = 0; i < _length; i++)
+                    for (int i = _length - 1; i >= 0; i--)
                         result += _bits[i].ToString();
                 }
                 else {
-                    for (int i = 0; i < resultLength; i++)
+                    for (int i = resultLength - 1; i >= 0; i--)
                         result += _bits[i];
                 }
             }

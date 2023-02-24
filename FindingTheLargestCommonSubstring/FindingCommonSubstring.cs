@@ -42,8 +42,7 @@ internal class FindingCommonSubstring {
         while (i < _firstString.Length) {
             hashes.Add(GetHash(temp));
             temp.Remove(0, 1);
-            temp += _firstString[i];
-            i++;
+            temp += _firstString[i++];
         }
         
 

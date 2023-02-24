@@ -16,7 +16,7 @@ internal class FindingCommonSubstring {
     }
 
     public string? FindMaxCommonSubstring() {
-        int high = _firstString.Length > _secondString.Length ? _firstString.Length : _secondString.Length;
+        int high = _firstString.Length > _secondString.Length ? _secondString.Length : _firstString.Length;
         int low = 0;
         int mid = 0;
 

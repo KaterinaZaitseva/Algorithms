@@ -4,80 +4,80 @@ using System.Globalization;
 namespace FindingTheLargestCommonSubstring;
 internal class FindingCommonSubstring {
 
-    private int _p = 11;
-    private int _r = 256;
+    private long _primeNumber = 1111111;
+    private long _restrictor = 4294967296;
     private string _firstString;
     private string _secondString;
 
-    public FindingCommonSubstring(string firstString, string secondString)
-    {
+    public FindingCommonSubstring(string firstString, string secondString) {
         _firstString = firstString;
         _secondString = secondString;
     }
 
-    public string? FindMaxCommonSubstring() {
-        int high = _firstString.Length > _secondString.Length ? _secondString.Length : _firstString.Length;
+    public string? FindMaxCommonSubstring(bool needCheck) {
+        int high = _firstString.Length > _secondString.Length ? _secondString.Length: _firstString.Length;
         int low = 0;
         int mid = 0;
 
-        while (low < high) {
+        while (low <= high) {
             mid = (low + high) / 2;
 
-            if (F(mid) != null)
+            if (CheckSubstring(mid, needCheck) != null)
                 low = mid + 1;
             else
                 high = mid - 1;
         }
 
-        return F(high);
+        return CheckSubstring(high, needCheck);
     }
 
-    public string? F(int N) {
-        List<int> hashes = new List<int>();
-        int i = N;
-        int hash = 0;
+    private string? CheckSubstring(int substringSize, bool needCheck) {
+        List<long> hashes = new List<long>();
+        long hash;
+        string currentSubstring;
+        int indexSubstring;
 
-        string temp = _firstString[0..N];
+        for (int i = 0; i <= _firstString.Length - substringSize; i++)
+            hashes.Add(GetHash(_firstString[i..(i + substringSize)]));
 
-        while (i < _firstString.Length) {
-            hashes.Add(GetHash(temp));
-            temp.Remove(0, 1);
-            temp += _firstString[i++];
-        }
-        
-
-        for (int j = 0; j < _secondString.Length - N; j++) {
-            hash = GetHash(_secondString[j..(j + N - 1)].ToString());
-            if (hashes.Contains(hash))
-                return _secondString[j..(j + N - 1)].ToString(); //проверить случайные элементы
-            else continue;
+        for (int j = 0; j <= _secondString.Length - substringSize; j++) {
+            currentSubstring = _secondString[j..(j + substringSize)];
+            hash = GetHash(currentSubstring);
+            indexSubstring = hashes.IndexOf(hash);
+            if (indexSubstring != -1) {
+                if (needCheck) {
+                    if (currentSubstring == _firstString[indexSubstring..(indexSubstring + substringSize)])
+                        return currentSubstring;
+                }
+                else return currentSubstring;
+            }
         }
 
         return null;
     }
 
-    public int GetHash(string str) {
-        int result = 0;
+    private long GetHash(string str) {
+        long result = 0;
 
         for(int i = 0; i < str.Length; i++) 
-            result = (_p * result + str[i]) % _r;
+            result = (_primeNumber * result + str[i]) % _restrictor;
 
         return result;
     }
 
-    public int GetSubstring(string str, string sub) {
-        int subHash = GetHash(sub);
-        int strHash = GetHash(str[0..sub.Length]);
-        int maxP = 1;
+    public int GetCommonSubstringCount(string str, string sub) {
+        long subHash = GetHash(sub);
+        long strHash = GetHash(str[0..sub.Length]);
+        long maxP = 1;
         int count = 0;
         for (int i = 1; i <= sub.Length; i++)
-            maxP = (maxP * _p) % _r;
+            maxP = (maxP * _primeNumber) % _restrictor;
 
         for (int i = 0; i < str.Length - sub.Length; i++) {
             if (subHash == strHash)
                 count++;
             //strHash = ((strHash - str[i] *maxP) * p + str[i + sub.Length]) % r;
-            strHash = (_p * strHash - maxP * GetHash(str[i].ToString()) + GetHash(str[i + sub.Length].ToString())) % _r;
+            strHash = (_primeNumber * strHash - maxP * GetHash(str[i].ToString()) + GetHash(str[i + sub.Length].ToString())) % _restrictor;
         }
 
         return count;

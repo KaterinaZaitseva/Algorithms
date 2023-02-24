@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NumericalRepresentation", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinarySearch", "BinarySearch\BinarySearch.csproj", "{C7252FC0-4CE8-4AF8-A144-1F7ECE878CE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SieveOfEratosthenes", "SieveOfEratosthenes\SieveOfEratosthenes.csproj", "{369A8031-6171-417B-A335-3AF1C916B993}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SieveOfEratosthenes", "SieveOfEratosthenes\SieveOfEratosthenes.csproj", "{369A8031-6171-417B-A335-3AF1C916B993}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindingTheLargestCommonSubstring", "FindingTheLargestCommonSubstring\FindingTheLargestCommonSubstring.csproj", "{F34A286B-DF84-4246-B3EE-859F0C1D40E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{369A8031-6171-417B-A335-3AF1C916B993}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{369A8031-6171-417B-A335-3AF1C916B993}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{369A8031-6171-417B-A335-3AF1C916B993}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F34A286B-DF84-4246-B3EE-859F0C1D40E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F34A286B-DF84-4246-B3EE-859F0C1D40E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F34A286B-DF84-4246-B3EE-859F0C1D40E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F34A286B-DF84-4246-B3EE-859F0C1D40E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

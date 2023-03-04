@@ -4,6 +4,7 @@ internal class Program {
         PrefixSum ps = new PrefixSum();
         StartCalculateQueries(ps);
     }
+
     private static void StartCalculateQueries(PrefixSum ps) {
         Console.WriteLine("\nEnter a right and left bounds (enter 'stop' to exit)");
         string[] leftAndRight;

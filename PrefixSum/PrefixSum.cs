@@ -13,12 +13,13 @@ namespace PrefixSum {
         public PrefixSum() {
             RandomInitialization();
             _prefixSums = new long[_numbers.Length];
-            CalculatePrifixSum();
+            CalculatePrefixSum();
         }
+
         public PrefixSum(int[] numbers, int numberOfQuery) {
             _numbers = numbers;
             _prefixSums = new long[_numbers.Length];
-            CalculatePrifixSum();
+            CalculatePrefixSum();
         }
 
         private void RandomInitialization() {
@@ -28,33 +29,25 @@ namespace PrefixSum {
             for(int i = 0; i < _numbers.Length; i++)
                 _numbers[i] = rnd.Next(0, 100);
         }
-        private void CalculatePrifixSum() {
+
+        private void CalculatePrefixSum() {
             _prefixSums[0] = _numbers[0];
             for(int i = 1; i < _numbers.Length; i++) 
                 _prefixSums[i] = _prefixSums[i - 1] + _numbers[i];
         }
 
-        private long Query(int l, int r) {
+        private long QuerySum(int l, int r) {
             if(l > 0) return _prefixSums[r] - _prefixSums[l - 1];
             else return _prefixSums[r];
         }
 
-        public void StartCalculating() {
-            Console.WriteLine("Array:");
-            foreach(int i in _numbers)
-                Console.Write(i + " ");
-
-            Console.WriteLine("\nEnter a right and left bounds (enter 'stop' to exit)");
-            string[] leftAndRight;
-            string? input = Console.ReadLine();
-
-            while(input != "stop") {
-                if(input != null) {
-                    leftAndRight = input.Split(' ');
-                    Console.WriteLine(Query(Int32.Parse(leftAndRight[0]), Int32.Parse(leftAndRight[1])));
-                }
-                input = Console.ReadLine();
-            }
+        public long QuerySum(Range range) {
+            return QuerySum(range.Start.Value, range.End.Value);
         }
+
+        public long QuerySum() {
+            return QuerySum(0..(_numbers.Length - 1));
+        }
+
     }
 }

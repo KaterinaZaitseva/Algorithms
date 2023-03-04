@@ -16,7 +16,7 @@ namespace PrefixSum {
             CalculatePrefixSum();
         }
 
-        public PrefixSum(int[] numbers, int numberOfQuery) {
+        public PrefixSum(int[] numbers) {
             _numbers = numbers;
             _prefixSums = new long[_numbers.Length];
             CalculatePrefixSum();
@@ -42,11 +42,11 @@ namespace PrefixSum {
         }
 
         public long QuerySum(Range range) {
-            return QuerySum(range.Start.Value, range.End.Value);
+            return QuerySum(range.Start.Value, range.End.Value - 1);
         }
 
         public long QuerySum() {
-            return QuerySum(0..(_numbers.Length - 1));
+            return QuerySum(0, _numbers.Length - 1);
         }
 
     }
